@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useContext } from "react";
+import Grid from "./components/Grid";
+import { AppContext } from "./context/AppContext";
 
-function App() {
+export default function App() {
+  const { dispatch } = useContext(AppContext);
+
+  function changeGrid() {
+    const rows = Number(prompt("Rows?"));
+    const cols = Number(prompt("Cols?"));
+
+    dispatch({ type: "SET_GRID", payload: { rows, cols } });
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ padding: "20px" }}>
+      <h1>Modular Scheduler</h1>
+
+      {/* Change grid layout */}
+      <button onClick={changeGrid}>Change Grid</button>
+
+      <Grid />
     </div>
   );
 }
 
-export default App;
