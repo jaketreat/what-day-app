@@ -1,11 +1,9 @@
-import React, { useContext } from "react";
+import React, { useState } from "react";
 import Grid from "./components/Grid";
-import { AppContext } from "./context/AppContext";
-import './App.css';
-import { useState } from "react";
 
 export default function App() {
-  const { dispatch } = useContext(AppContext);
+  // Grid size state
+  const [grid, setGrid] = useState({ rows: 3, cols: 4 });
   const [theme, setTheme] = useState(false);
 
   function toggleTheme() {
@@ -16,13 +14,16 @@ export default function App() {
     classToggle: theme ? "dark-theme" : "light-theme",
   };
 
+  // All blocks stored here
+  const [blocks, setBlocks] = useState([]);
+
   function changeGrid() {
     const rows = Number(prompt("Rows?"));
     const cols = Number(prompt("Cols?"));
 
-    dispatch({ type: "SET_GRID", payload: { rows, cols } });
+    setGrid({ rows, cols });
   }
-
+  
   return (
     <div className={themeClass.classToggle} style={{ padding: "20px" }}>
       <h1 className={themeClass.classToggle}>Modular Scheduler</h1>
@@ -31,7 +32,11 @@ export default function App() {
       <button onClick={changeGrid}>Change Grid</button>
       <button onClick={toggleTheme}>Change Theme</button>
 
-      <Grid />
+      <Grid
+        grid={grid}
+        blocks={blocks}
+        setBlocks={setBlocks}
+      />
     </div>
   );
 }

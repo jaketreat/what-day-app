@@ -1,12 +1,28 @@
-import React, { useContext } from "react";
-import { AppContext } from "../context/AppContext";
-import { useTimeLogic } from "../hooks/useTimeLogic";
+import React, { useEffect, useState } from "react";
 
-export default function Block({ block }) {
-  const { dispatch } = useContext(AppContext);
+export default function Block({ block, blocks, setBlocks }) {
+  const [text, setText] = useState("");
 
-  // Get current display text based on time
-  const text = useTimeLogic(block.schedules);
+  // Time-based text logic (inline instead of custom hook)
+  useEffect(() => {
+    function updateText() {
+      const now = new Date();
+
+      for (let s of block.schedules) {
+        if (now >= new Date(s.start) && now <= new Date(s.end)) {
+          setText(s.text);
+          return;
+        }
+      }
+
+      setText("No schedule");
+    }
+
+    updateText();
+
+    const interval = setInterval(updateText, 60000);
+    return () => clearInterval(interval);
+  }, [block.schedules]);
 
   function addSchedule() {
     const newSchedule = {
@@ -15,19 +31,20 @@ export default function Block({ block }) {
       text: prompt("Text + emoji")
     };
 
-    const updatedBlock = {
-      ...block,
-      schedules: [...block.schedules, newSchedule]
-    };
+    const updatedBlocks = blocks.map((b) =>
+      b.id === block.id
+        ? { ...b, schedules: [...b.schedules, newSchedule] }
+        : b
+    );
 
-    dispatch({ type: "UPDATE_BLOCK", payload: updatedBlock });
+    setBlocks(updatedBlocks);
   }
 
   return (
     <div
       draggable
       style={{
-        background: "lightblue",
+        background: "lightgreen",
         height: "100%",
         display: "flex",
         alignItems: "center",
@@ -36,7 +53,6 @@ export default function Block({ block }) {
       }}
     >
       <div onClick={addSchedule}>
-        {/* Display dynamic text */}
         {text || "Click to add schedule"}
       </div>
     </div>
