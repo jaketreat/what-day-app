@@ -1,23 +1,9 @@
-.dark-theme {
-  background-color: Black;
-}
-
-.light-theme {
-  background-color: white;
-}
-
-h1.dark-theme {
-  color: white;
-}
-
-h1.light-theme {
+body.light-theme {
+  background: white;
   color: black;
 }
-/*
-.button-primary {
 
+body.dark-theme {
+  background: #111;
+  color: white;
 }
-.button-secondary {
-
-}
-*/
