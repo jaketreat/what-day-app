@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Grid from "./components/Grid";
 import "./App.css";
+import { themes } from "./themes";
 
 export default function App() {
   // Grid size state

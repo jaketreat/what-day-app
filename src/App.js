@@ -1,50 +1,48 @@
 import React, { useState, useEffect } from "react";
-import Grid from "./components/Grid";
 import "./App.css";
+import { themes } from "./components/Themes";
 
 export default function App() {
-  // Grid size state
-  const [grid, setGrid] = useState({ rows: 3, cols: 4 });
+/*const [darkMode, setDarkMode] = useState(false);
+const handleDarkClick = () => {
+  setDarkMode(!darkMode);
+}*/
+const [scheme, setScheme] = useState("flower");
+const [mode, setMode] = useState("light"); // light | dark
+const [style, setStyle] = useState("solid");
 
-  // Theme state (false = light, true = dark)
-  const [theme, setTheme] = useState(false);
+const activeTheme =
+  themes[scheme]?.[mode]?.[style] ||
+  themes["flower"]["light"]["solid"];
 
-  // Apply theme to <body>
-  useEffect(() => {
-    document.body.className = theme ? "dark-theme" : "light-theme";
-  }, [theme]);
-
-  // Toggle theme (button uses this)
-  function toggleTheme() {
-    setTheme((prev) => !prev);
-  }
-
-  // All blocks stored here
-  const [blocks, setBlocks] = useState([]);
-
-  function changeGrid() {
-    const rows = Number(prompt("Rows?"));
-    const cols = Number(prompt("Cols?"));
-
-    setGrid({ rows, cols });
-  }
+useEffect(() => {
+  document.body.style.background = activeTheme.background;
+}, [activeTheme]);
+  
 
   return (
     <div style={{ padding: "20px" }}>
-      <h1>Modular Scheduler</h1>
-
-      {/* Buttons */}
-      <button onClick={changeGrid}>Change Grid</button>
-      <button onClick={toggleTheme}>
-        Toggle Theme ({theme ? "Dark" : "Light"})
-      </button>
-
-      {/* Grid */}
-      <Grid
-        grid={grid}
-        blocks={blocks}
-        setBlocks={setBlocks}
-      />
+      <div className="header">
+        <h1 style={{ color: activeTheme.header}}>Modular Scheduler</h1>
+      </div>
+      <div className="colorSchemes">
+        <div style={{ background: activeTheme.color1, height: "50px", width: "50px", borderRadius: "10px" }}></div>
+        <div style={{ background: activeTheme.color2, height: "50px", width: "50px", borderRadius: "10px" }}></div>
+        <div style={{ background: activeTheme.color3, height: "50px", width: "50px", borderRadius: "10px" }}></div>
+        <div style={{ background: activeTheme.color4, height: "50px", width: "50px", borderRadius: "10px" }}></div>
+      </div>
+      <div className="buttons">
+        <button onClick={() => setScheme("flower")}>Flower</button>
+        <button onClick={() => setScheme("muted")}>Muted</button>
+        <button onClick={() => setScheme("groovy")}>Groovy</button>
+        <button onClick={() => setScheme("playground")}>Playground</button>
+        <button onClick={() => setMode(mode === "light" ? "dark" : "light")}>
+          Toggle Mode
+        </button>
+        <button onClick={() => setStyle(style === "solid" ? "gradient" : "solid")}>
+          Toggle Style
+        </button>
+      </div>
     </div>
   );
 }

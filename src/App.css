@@ -7,3 +7,18 @@ body.dark-theme {
   background: #111;
   color: white;
 }
+
+.colorSchemes {
+  display: flex;
+  gap: 10px;
+}
+
+.buttons {
+  display: flex;
+  gap: 25px;
+  padding-top: 10px;
+}
+
+button {
+  padding: 10px;
+}
