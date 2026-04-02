@@ -28,30 +28,32 @@ const buttonStyle = {
   borderRadius: '8px',
 };
 
-const headerStyle = isGradient
-  ? {
-      textAlign: 'center',
-      background: activeTheme.header,
-      WebkitBackgroundClip: "text",
-      WebkitTextFillColor: "transparent",
-      width: "40%",
-      margin: "auto",
-    }
-  : {
-      color: activeTheme.header,
-    };
+const headerStyle = {
+  textAlign: "center",
+  width: "25%",
+  margin: "0 auto",
+  ...(isGradient
+    ? {
+        background: activeTheme.header,
+        WebkitBackgroundClip: "text",
+        WebkitTextFillColor: "transparent",
+      }
+    : {
+        color: activeTheme.header,
+      }),
+};
   
 
   return (
     <div style={{ padding: "20px" }}>
       <div className="header">
-        <h1 style={headerStyle}>Modular Scheduler</h1>
+        <h1 style={headerStyle}>WHAT DAY IS IT?</h1>
       </div>
       <div className="colorSchemes">
-        <div style={{ background: activeTheme.color1, height: "50px", width: "50px", borderRadius: "10px" }}></div>
-        <div style={{ background: activeTheme.color2, height: "50px", width: "50px", borderRadius: "10px" }}></div>
-        <div style={{ background: activeTheme.color3, height: "50px", width: "50px", borderRadius: "10px" }}></div>
-        <div style={{ background: activeTheme.color4, height: "50px", width: "50px", borderRadius: "10px" }}></div>
+        <div style={{ background: activeTheme.color1, height: "75px", width: "75px", borderRadius: "10px" }}></div>
+        <div style={{ background: activeTheme.color2, height: "75px", width: "75px", borderRadius: "10px" }}></div>
+        <div style={{ background: activeTheme.color3, height: "75px", width: "75px", borderRadius: "10px" }}></div>
+        <div style={{ background: activeTheme.color4, height: "75px", width: "75px", borderRadius: "10px" }}></div>
       </div>
       <div className="buttons">
         <button style={buttonStyle} onClick={() => setScheme("flower")}>Flower</button>
@@ -66,6 +68,9 @@ const headerStyle = isGradient
         <button style={buttonStyle} onClick={() => setStyle(style === "solid" ? "gradient" : "solid")}>
           Toggle Style
         </button>
+      </div>
+      <div className="identifiers">
+          <p style={{ color: activeTheme.text }}>Color Scheme: <strong>{scheme}</strong>, Dark Mode: <strong>{mode}</strong>, Gradient/Solid: <strong>{style}</strong></p>
       </div>
     </div>
   );

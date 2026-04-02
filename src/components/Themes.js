@@ -83,7 +83,7 @@ export const themes = {
       },
       gradient: {
         background: "#2a333c",
-        header: "linear-gradient(to right, #837d68, #8a9db1)",
+        header: "linear-gradient(to right, #ecc5c6, #8a9db1)",
         text: "#ebe8e7",
         color1: "linear-gradient(to bottom, #837d68, #8a9db1)",
         color2: "linear-gradient(to bottom, #8a9db1, #ecc5c6)",
