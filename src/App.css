@@ -8,15 +8,23 @@ body.dark-theme {
   color: white;
 }
 
+.header{
+  text-align: center;
+  text-transform: uppercase;
+}
+
 .colorSchemes {
   display: flex;
   gap: 10px;
+  justify-content: center;
+  margin-bottom: 10px;
 }
 
 .buttons {
   display: flex;
   gap: 25px;
   padding-top: 10px;
+  justify-content: center;
 }
 
 button {
