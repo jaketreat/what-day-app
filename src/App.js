@@ -12,18 +12,30 @@ const [mode, setMode] = useState("light"); // light | dark
 const [style, setStyle] = useState("solid");
 
 const activeTheme =
-  themes[scheme]?.[mode]?.[style] ||
-  themes["flower"]["light"]["solid"];
+  themes[scheme][mode][style];
 
 useEffect(() => {
   document.body.style.background = activeTheme.background;
 }, [activeTheme]);
+
+const isGradient = activeTheme.header.includes("gradient");
+
+const headerStyle = isGradient
+  ? {
+      background: activeTheme.header,
+      WebkitBackgroundClip: "text",
+      WebkitTextFillColor: "transparent",
+      width: "40%"
+    }
+  : {
+      color: activeTheme.header,
+    };
   
 
   return (
     <div style={{ padding: "20px" }}>
       <div className="header">
-        <h1 style={{ color: activeTheme.header}}>Modular Scheduler</h1>
+        <h1 style={headerStyle}>Modular Scheduler</h1>
       </div>
       <div className="colorSchemes">
         <div style={{ background: activeTheme.color1, height: "50px", width: "50px", borderRadius: "10px" }}></div>
